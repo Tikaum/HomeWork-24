@@ -23,9 +23,7 @@ namespace Wrappers.Page.Forms
 
         public bool RegistrationUserSuccess()
         {            
-            return RegButtonInput.IsElementNotDisplayed();
+            return RegFieldUserInput.IsElementNotDisplayed();
         }
-
-
     }
 }

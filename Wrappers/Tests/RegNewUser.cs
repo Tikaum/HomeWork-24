@@ -24,10 +24,6 @@ namespace Wrappers.Tests
             registrationForm.RegistrationUser(user);
             registrationForm.RegistrationUserSuccess();
             Assert.That(registrationForm.RegistrationUserSuccess(), Is.True, "Registration failed");
-        }
-
-
-
-        
+        }        
     }
 }
