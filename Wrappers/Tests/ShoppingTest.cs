@@ -11,18 +11,19 @@ namespace Wrappers.Tests
         ShopPage shopPage = new ShopPage();
         CartPage cartPage = new CartPage();
         RegNewUser regNewUser = new RegNewUser();
+        OrderForm checkoutForm = new OrderForm();
 
         [Test]
         public void ShoppingBuyingTest()
         {
             string itemName = "HTML5 WebApp Develpment";
             startPage.OpenPage();
-            //startPage.RegistrationNewUser();
-            var user = new UserBuilder()
-                .WithName("test_user12345@gmail.com")
-                .WithPassword("vszef#@$%#54456456")
-                .Build();
-            loginForm.LoginUser(user);
+            startPage.RegistrationNewUser();
+            //var user = new UserBuilder()
+            //    .WithName("test_user12345@gmail.com")
+            //    .WithPassword("vszef#@$%#54456456")
+            //    .Build();
+            //loginForm.LoginUser(user);
             startPage.GoToShopPage();
             shopPage.AddItemFromNameToCart(itemName);
             string price = shopPage.GetPriceOfItemInShop(itemName);
@@ -35,6 +36,14 @@ namespace Wrappers.Tests
                 Assert.That(price, Is.EqualTo(cartPage.GetPriceOfItemInCart()), "The prices of the goods do not match");
             });
             cartPage.PurchaseItems();
+            var user = new UserBuilder()
+                .WithFirstName("11111")
+                .WithLasttName("11111")
+                .WithPhone("11111")
+                .WithAdress1("11111")
+                .WithCity("Fgesgrg")
+                .WithPostcod("11111").BuildForOrder();
+            checkoutForm.FillingOutOrder(user);
         }
     }
 }

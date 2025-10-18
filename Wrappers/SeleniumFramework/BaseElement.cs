@@ -46,6 +46,11 @@ namespace Wrappers.SeleniumFramework
             Element.SendKeys(text);
         }
 
+        public void SetUpTextWithOutClear(string text)
+        {            
+            Element.SendKeys(text);
+        }
+
         public string GetText()
         {
             return Element.Text;
