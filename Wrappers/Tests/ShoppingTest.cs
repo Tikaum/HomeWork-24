@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Wrappers.Builders;
+﻿using Wrappers.Builders;
 using Wrappers.Page;
 using Wrappers.Page.Forms;
-using Wrappers.Utils;
 
 namespace Wrappers.Tests
 {
@@ -14,19 +8,33 @@ namespace Wrappers.Tests
     {
         StartPage startPage = new StartPage();               
         LoginForm loginForm = new LoginForm();
+        ShopPage shopPage = new ShopPage();
+        CartPage cartPage = new CartPage();
+        RegNewUser regNewUser = new RegNewUser();
 
         [Test]
-        public void ShoppingBayngTest()
+        public void ShoppingBuyingTest()
         {
+            string itemName = "HTML5 WebApp Develpment";
             startPage.OpenPage();
+            //startPage.RegistrationNewUser();
             var user = new UserBuilder()
                 .WithName("test_user12345@gmail.com")
                 .WithPassword("vszef#@$%#54456456")
                 .Build();
             loginForm.LoginUser(user);
             startPage.GoToShopPage();
-
-
+            shopPage.AddItemFromNameToCart(itemName);
+            string price = shopPage.GetPriceOfItemInShop(itemName);
+            shopPage.GoToCart();
+            cartPage.GetPriceOfItemInCart();
+            cartPage.GetItemName();
+            Assert.Multiple(() =>
+            {
+                Assert.That(itemName, Is.EqualTo(cartPage.GetItemName()), "The product names do not match");
+                Assert.That(price, Is.EqualTo(cartPage.GetPriceOfItemInCart()), "The prices of the goods do not match");
+            });
+            cartPage.PurchaseItems();
         }
     }
 }
