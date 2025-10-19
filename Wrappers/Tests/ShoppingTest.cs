@@ -23,8 +23,7 @@ namespace Wrappers.Tests
             string usersWord = "Abrakadabra";
             string usersDigits = "123456";
             string textOfOrderReceived = "Thank you. Your order has been received.";
-            startPage.OpenPage();
-            //startPage.RegistrationNewUser();
+                        
             var user = new UserBuilder()
                 .WithName(userEmail)
                 .WithPassword(userPass)

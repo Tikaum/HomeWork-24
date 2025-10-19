@@ -1,19 +1,16 @@
-﻿using NUnit.Framework.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Wrappers.Page;
 using Wrappers.Utils;
 
 namespace Wrappers.Tests
 {
     public class BaseTest
     {
+        StartPage startPage = new StartPage();
+
         [SetUp]
         public void Setup()
         {
-            
+            startPage.OpenPage();
         }
 
         [TearDown]

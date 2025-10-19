@@ -40,9 +40,5 @@ namespace Wrappers.Page
         {
             PurchaseItem.ClickElement();
         }
-
-
-
-
     }
 }

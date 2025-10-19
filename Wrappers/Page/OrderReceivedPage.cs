@@ -1,6 +1,4 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System.Diagnostics;
 using Wrappers.SeleniumFramework;
 
 namespace Wrappers.Page
@@ -17,16 +15,12 @@ namespace Wrappers.Page
         InfoElement ProductNameInOrderReceived => new InfoElement(ProductNameLocator);
         InfoElement ProductPriceInOrderReceived => new InfoElement(ProductPriceLocator);
         InfoElement EmailInOrderReceived => new InfoElement(EmailLocator);
-        InfoElement TelephoneInOrderReceived => new InfoElement(TelephoneLocator);
-
-        //IList<(string Text, string Name, string Price, string Email, string Telephone)> OrderReceivedInfo 
-        //    = new List<(string, string, string, string, string)>();
+        InfoElement TelephoneInOrderReceived => new InfoElement(TelephoneLocator);        
 
         public IList<(string Text, string Name, string Price, string Email, string Telephone)> GetOrderReceivedInfo()
         {
             var OrderReceivedInfoInfo = new List<(string, string, string, string, string)>();
-            OrderReceivedInfoInfo
-                .Add((
+            OrderReceivedInfoInfo.Add((
                 OrderReceivedText.GetText(),
                 ProductNameInOrderReceived.GetText(),
                 ProductPriceInOrderReceived.GetText(),
@@ -35,7 +29,5 @@ namespace Wrappers.Page
             ));
             return OrderReceivedInfoInfo;
         }
-
-
     }
 }

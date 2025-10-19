@@ -32,7 +32,7 @@ namespace Wrappers.Page.Forms
             LastName.SetUpText(user.LastName);
             Phone.SetUpText(user.Phone);
             Adress1.SetUpText(user.Adress1);
-            City.SetUpTextWithOutClear(user.City);
+            City.SetUpText(user.City);
             Postcod.SetUpText(user.Postcod);            
         }
 

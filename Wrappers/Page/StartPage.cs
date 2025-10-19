@@ -13,7 +13,6 @@ namespace Wrappers.Page
         RegistrationForm registrationForm = new RegistrationForm();
 
         private readonly By CartNotEmptyButtonLocator = By.CssSelector("a[title='View your shopping cart']");        
-
         InfoElement CartNotEmptyButton => new InfoElement(CartNotEmptyButtonLocator);
 
         public void OpenPage()

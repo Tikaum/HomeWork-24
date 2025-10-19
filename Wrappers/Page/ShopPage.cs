@@ -16,11 +16,7 @@ namespace Wrappers.Page
         public ButtonElement CartButton => new ButtonElement(CartButtonLocator);
 
         public void AddItemFromNameToCart(string ItemName)
-        {
-            //this.GoToCart();
-            //cartPage.RemoveProductsFromCart();
-            //cartPage.GoToShopPage();
-
+        {            
             driver.FindElement(By.XPath(Format(ButtonAddToCartLocatorFormat, ItemName))).Click();
         }
 
@@ -32,8 +28,6 @@ namespace Wrappers.Page
         public void GoToCart()
         {            
             CartButton.ClickElement();
-        }
-
-        
+        }        
     }
 }
