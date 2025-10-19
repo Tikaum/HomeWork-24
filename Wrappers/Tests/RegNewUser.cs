@@ -1,4 +1,5 @@
-﻿using Wrappers.Builders;
+﻿using System.Diagnostics;
+using Wrappers.Builders;
 using Wrappers.Page;
 using Wrappers.Page.Forms;
 using Wrappers.Utils;
@@ -22,8 +23,12 @@ namespace Wrappers.Tests
             .WithPassword(Password)
             .Build();
             registrationForm.RegistrationUser(user);
-            registrationForm.RegistrationUserSuccess();
-            Assert.That(registrationForm.RegistrationUserSuccess(), Is.True, "Registration failed");
+            registrationForm.RegistrationUserSuccess();            
+            Assert.Multiple(() =>
+            {
+                Assert.That(registrationForm.RegistrationUser(user), Is.True, "Registration failed, the Registration button is unavailable");
+                Assert.That(registrationForm.RegistrationUserSuccess(), Is.True, "Registration failed, transition to the next page did not occur");
+            });
         }        
     }
 }

@@ -13,6 +13,8 @@ namespace Wrappers.Page.Forms
         private By CityLocator = By.Id("billing_city");
         private By PostcodLocator = By.Id("billing_postcode");
         private By PlaceOrderButtonLocator = By.Id("place_order");
+        private By ProductNameInOrderLocator = By.XPath("//td[@class='product-name']");
+        private By ProductPriceInOrderLocator = By.XPath("//td[@class=('product-total')]/span");
 
         public InputElement FirstName => new InputElement(FirstNameLocator);
         public InputElement LastName => new InputElement(LastNameLocator);
@@ -20,6 +22,8 @@ namespace Wrappers.Page.Forms
         public InputElement Adress1 => new InputElement(Adress1Locator);
         public InputElement City => new InputElement(CityLocator);
         public InputElement Postcod => new InputElement(PostcodLocator);
+        public InfoElement ProductNameInOrder => new InfoElement(ProductNameInOrderLocator);
+        public InfoElement ProductPriceInOrder => new InfoElement(ProductPriceInOrderLocator);
         public ButtonElement PlaceOrderButton => new ButtonElement(PlaceOrderButtonLocator);
 
         public void FillingOutOrder(User user)
@@ -29,10 +33,22 @@ namespace Wrappers.Page.Forms
             Phone.SetUpText(user.Phone);
             Adress1.SetUpText(user.Adress1);
             City.SetUpTextWithOutClear(user.City);
-            Postcod.SetUpText(user.Postcod);
-            PlaceOrderButton.ClickIfEnabled();
+            Postcod.SetUpText(user.Postcod);            
         }
 
+        public string GetProductNameInOrder()
+        {
+            return ProductNameInOrder.GetText();
+        }
 
+        public string GetPriceOfProductInOrder()
+        {
+            return ProductPriceInOrder.GetText();
+        }
+
+        public void PlaceOrder()
+        {
+            PlaceOrderButton.ClickIfEnabled();
+        }
     }
 }

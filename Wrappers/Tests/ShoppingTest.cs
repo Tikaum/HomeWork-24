@@ -4,46 +4,70 @@ using Wrappers.Page.Forms;
 
 namespace Wrappers.Tests
 {
-    public class ShoppingTest
+    public class ShoppingTest:BaseTest
     {
         StartPage startPage = new StartPage();               
         LoginForm loginForm = new LoginForm();
         ShopPage shopPage = new ShopPage();
         CartPage cartPage = new CartPage();
         RegNewUser regNewUser = new RegNewUser();
-        OrderForm checkoutForm = new OrderForm();
+        OrderForm orderForm = new OrderForm();
+        OrderReceivedPage orderReceivedPage = new OrderReceivedPage();
 
         [Test]
         public void ShoppingBuyingTest()
         {
+            string userEmail = "test_user12345@gmail.com";
+            string userPass = "vszef#@$%#54456456";
             string itemName = "HTML5 WebApp Develpment";
+            string usersWord = "Abrakadabra";
+            string usersDigits = "123456";
+            string textOfOrderReceived = "Thank you. Your order has been received.";
             startPage.OpenPage();
-            startPage.RegistrationNewUser();
-            //var user = new UserBuilder()
-            //    .WithName("test_user12345@gmail.com")
-            //    .WithPassword("vszef#@$%#54456456")
-            //    .Build();
-            //loginForm.LoginUser(user);
+            //startPage.RegistrationNewUser();
+            var user = new UserBuilder()
+                .WithName(userEmail)
+                .WithPassword(userPass)
+                .Build();
+            loginForm.LoginUser(user);
+            startPage.CleanCart();
             startPage.GoToShopPage();
             shopPage.AddItemFromNameToCart(itemName);
             string price = shopPage.GetPriceOfItemInShop(itemName);
             shopPage.GoToCart();
-            cartPage.GetPriceOfItemInCart();
-            cartPage.GetItemName();
+            cartPage.GetPriceOfProductInCart();
+            cartPage.GetProductNameInCart();
             Assert.Multiple(() =>
             {
-                Assert.That(itemName, Is.EqualTo(cartPage.GetItemName()), "The product names do not match");
-                Assert.That(price, Is.EqualTo(cartPage.GetPriceOfItemInCart()), "The prices of the goods do not match");
+                Assert.That(itemName, Is.EqualTo(cartPage.GetProductNameInCart()), "The product names do not match");
+                Assert.That(price, Is.EqualTo(cartPage.GetPriceOfProductInCart()), "The prices of the goods do not match");
             });
             cartPage.PurchaseItems();
-            var user = new UserBuilder()
-                .WithFirstName("Fgesgrg")
-                .WithLasttName("Fgesgrg")
-                .WithPhone("111111")
-                .WithAdress1("Fgesgrg")
-                .WithCity("Fgesgrg")
-                .WithPostcod("11111").BuildForOrder();
-            checkoutForm.FillingOutOrder(user);
+            user = new UserBuilder()
+                .WithFirstName(usersWord)
+                .WithLasttName(usersWord)
+                .WithPhone(usersDigits)
+                .WithAdress1(usersWord)
+                .WithCity(usersWord)
+                .WithPostcod(usersDigits).BuildForOrder();
+            orderForm.FillingOutOrder(user);
+            orderForm.GetProductNameInOrder();
+            orderForm.GetPriceOfProductInOrder();
+            Assert.Multiple(() =>
+            {
+                Assert.That(orderForm.GetProductNameInOrder(), Does.Contain(itemName), "The product name in order do not match");
+                Assert.That(price, Is.EqualTo(orderForm.GetPriceOfProductInOrder()), "The price in order of the product do not match");
+            });
+            orderForm.PlaceOrder();
+            var infoOfReceived = orderReceivedPage.GetOrderReceivedInfo();
+            Assert.Multiple(() =>
+            {
+                Assert.That(infoOfReceived[0].Text, Is.EqualTo(textOfOrderReceived), "The text on the order confirmation page does not match");
+                Assert.That(infoOfReceived[0].Name, Is.EqualTo(itemName), "The product name do not match");
+                Assert.That(infoOfReceived[0].Price, Is.EqualTo(price), "The price of the product do not match");
+                Assert.That(infoOfReceived[0].Email, Is.EqualTo(userEmail), "The e-mail of the user do not match");
+                Assert.That(infoOfReceived[0].Telephone, Is.EqualTo(usersDigits), "The telephone of the user do not match");
+            });
         }
     }
 }

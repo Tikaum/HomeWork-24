@@ -14,16 +14,21 @@ namespace Wrappers.Page.Forms
         public InputElement PasswordFieldUserInput => new InputElement(PasswordFieldUserLocator);
         public InputElement RegButtonInput => new InputElement(RegButtonLocator);
 
-        public void RegistrationUser(User user)
+        public bool RegistrationUser(User user)
         {
             RegFieldUserInput.SetUpText(user.UserName);
             PasswordFieldUserInput.SetUpText(user.Password);
-            RegButtonInput.ClickElement();            
+            bool IsRegButtonEnable = RegButtonInput.IsEnabled();            
+            return IsRegButtonEnable;
         }
 
         public bool RegistrationUserSuccess()
-        {            
-            return RegFieldUserInput.IsElementNotDisplayed();
+        {                        
+            if (ShopPageButton.IsElementDisplayed())
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }

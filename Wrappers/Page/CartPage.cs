@@ -1,12 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Wrappers.SeleniumFramework;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Wrappers.Page
 {
@@ -16,19 +10,16 @@ namespace Wrappers.Page
         private By ProductPriceLocator = By.XPath("//td[@class=('product-price')]/span");
         private By RemoveProductsLocator = By.CssSelector(".remove");     
         private By PurchaseItemLocator = By.XPath("//a[contains(text(), 'Proceed to Checkout')]");        
-
-
-
         public InfoElement ProductName => new InfoElement(ProductNameLocator);
         public InfoElement ProductPrice => new InfoElement(ProductPriceLocator);
         public ButtonElement PurchaseItem => new ButtonElement(PurchaseItemLocator);
 
-        public string GetItemName()
+        public string GetProductNameInCart()
         {
             return ProductName.GetText();             
         }
 
-        public string GetPriceOfItemInCart()
+        public string GetPriceOfProductInCart()
         {
             return ProductPrice.GetText();
         }
