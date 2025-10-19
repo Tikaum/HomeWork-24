@@ -37,10 +37,10 @@ namespace Wrappers.Tests
             });
             cartPage.PurchaseItems();
             var user = new UserBuilder()
-                .WithFirstName("11111")
-                .WithLasttName("11111")
-                .WithPhone("11111")
-                .WithAdress1("11111")
+                .WithFirstName("Fgesgrg")
+                .WithLasttName("Fgesgrg")
+                .WithPhone("111111")
+                .WithAdress1("Fgesgrg")
                 .WithCity("Fgesgrg")
                 .WithPostcod("11111").BuildForOrder();
             checkoutForm.FillingOutOrder(user);

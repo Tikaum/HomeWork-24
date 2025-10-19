@@ -1,9 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Wrappers.Models;
 using Wrappers.SeleniumFramework;
 
@@ -15,8 +10,8 @@ namespace Wrappers.Page.Forms
         private By LastNameLocator = By.Id("billing_last_name");
         private By PhoneLocator = By.Id("billing_phone");
         private By Adress1Locator = By.Id("billing_address_1");
-        private By CityLocator = By.Id("billing_city_field");
-        private By PostcodLocator = By.Id("billing_postcode_field");
+        private By CityLocator = By.Id("billing_city");
+        private By PostcodLocator = By.Id("billing_postcode");
         private By PlaceOrderButtonLocator = By.Id("place_order");
 
         public InputElement FirstName => new InputElement(FirstNameLocator);
@@ -37,5 +32,7 @@ namespace Wrappers.Page.Forms
             Postcod.SetUpText(user.Postcod);
             PlaceOrderButton.ClickIfEnabled();
         }
+
+
     }
 }
