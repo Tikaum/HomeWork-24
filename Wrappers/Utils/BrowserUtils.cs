@@ -24,7 +24,7 @@ namespace Wrappers.Utils
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
             var driver = new ChromeDriver(options);
-            // Устанавливаем неявное ожидание в 10 секунд
+            // Устанавливаем неявное ожидание в 5 секунд
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             return driver;
         }
