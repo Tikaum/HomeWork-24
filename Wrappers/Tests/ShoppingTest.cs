@@ -29,19 +29,23 @@ namespace Wrappers.Tests
                 .WithPassword(userPass)
                 .Build();
             loginForm.LoginUser(user);
+            Assert.That(startPage.IsUserEnter(userEmail), Is.True, "The user was unable to log in.");
             startPage.CleanCart();
             startPage.GoToShopPage();
+            Assert.That(shopPage.IsUserOnShopPage, Is.True, "The user did not go to the shop page");
             shopPage.AddItemFromNameToCart(itemName);
             string price = shopPage.GetPriceOfItemInShop(itemName);
             shopPage.GoToCart();
-            cartPage.GetPriceOfProductInCart();
-            cartPage.GetProductNameInCart();
+            Assert.That(cartPage.IsUserOnCartPage, Is.True, "The user did not go to the cart page");
+            cartPage.GetPriceOfProductInCart(itemName);
+            cartPage.GetProductNameInCart(itemName);
             Assert.Multiple(() =>
             {
-                Assert.That(itemName, Is.EqualTo(cartPage.GetProductNameInCart()), "The product names do not match");
-                Assert.That(price, Is.EqualTo(cartPage.GetPriceOfProductInCart()), "The prices of the goods do not match");
+                Assert.That(itemName, Is.EqualTo(cartPage.GetProductNameInCart(itemName)), "The product names do not match");
+                Assert.That(price, Is.EqualTo(cartPage.GetPriceOfProductInCart(itemName)), "The prices of the goods do not match");
             });
             cartPage.PurchaseItems();
+            Assert.That(orderForm.IsUserOnOrderPage, Is.True, "The user did not go to the order page");
             user = new UserBuilder()
                 .WithFirstName(usersWord)
                 .WithLasttName(usersWord)
@@ -58,6 +62,7 @@ namespace Wrappers.Tests
                 Assert.That(price, Is.EqualTo(orderForm.GetPriceOfProductInOrder()), "The price in order of the product do not match");
             });
             orderForm.PlaceOrder();
+            Assert.That(orderReceivedPage.IsUserOnOrderReceivedPage, Is.True, "The user did not go to the order received page");
             var infoOfReceived = orderReceivedPage.GetOrderReceivedInfo();
             Assert.Multiple(() =>
             {

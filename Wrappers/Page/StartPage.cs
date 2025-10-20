@@ -12,8 +12,10 @@ namespace Wrappers.Page
         Generator randomGenerator = new Generator();
         RegistrationForm registrationForm = new RegistrationForm();
 
-        private readonly By CartNotEmptyButtonLocator = By.CssSelector("a[title='View your shopping cart']");        
+        private readonly By CartNotEmptyButtonLocator = By.CssSelector("a[title='View your shopping cart']");
+        private readonly By HelloUserLocator = By.XPath("//p[contains(text(), 'Hello')]/strong");
         InfoElement CartNotEmptyButton => new InfoElement(CartNotEmptyButtonLocator);
+        InfoElement HelloUser => new InfoElement(HelloUserLocator);
 
         public void OpenPage()
         {
@@ -38,6 +40,17 @@ namespace Wrappers.Page
                 CartNotEmptyButton.ClickElement();                
                 cartPage.RemoveItemsFromCart();                
             }
+        }
+
+        public bool IsUserEnter(string useremail)
+        {
+            string userNameSet = useremail.Split('@')[0];
+            string userNameGet = HelloUser.GetText();
+            if (userNameSet == userNameGet)
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }

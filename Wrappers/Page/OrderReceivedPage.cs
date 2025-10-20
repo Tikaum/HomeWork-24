@@ -10,6 +10,7 @@ namespace Wrappers.Page
         private By ProductPriceLocator = By.XPath("//td[@class='product-total']/span");
         private By EmailLocator = By.XPath("//th[contains(text(),'Email:')]/following::td");
         private By TelephoneLocator = By.XPath("//th[contains(text(),'Telephone:')]/following::td");
+        private By IsOrderReceivedPageLocator = By.XPath("//p[text()='Thank you. Your order has been received.']");
 
         InfoElement OrderReceivedText => new InfoElement(OrderReceivedTextLocator);
         InfoElement ProductNameInOrderReceived => new InfoElement(ProductNameLocator);
@@ -28,6 +29,15 @@ namespace Wrappers.Page
                 TelephoneInOrderReceived.GetText()
             ));
             return OrderReceivedInfoInfo;
+        }
+
+        public bool IsUserOnOrderReceivedPage()
+        {
+            if (driver.FindElements(IsOrderReceivedPageLocator).Count() != 0)
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }

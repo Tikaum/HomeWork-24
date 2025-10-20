@@ -1,27 +1,28 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Wrappers.SeleniumFramework;
+using static System.String;
 
 namespace Wrappers.Page
 {
     public class CartPage:BasePage
     {
-        private By ProductNameLocator = By.XPath("//td[@class=('product-name')]/a");
-        private By ProductPriceLocator = By.XPath("//td[@class=('product-price')]/span");
+        private string ProductNameLocatorFormat = "//a[contains(text(),'{0}')]";
+        private string ProductPriceLocatorFormat = "//a[contains(text(),'{0}')]/following::td[@class=('product-price')]/span";
         private By RemoveProductsLocator = By.CssSelector(".remove");     
-        private By PurchaseItemLocator = By.XPath("//a[contains(text(), 'Proceed to Checkout')]");        
-        public InfoElement ProductName => new InfoElement(ProductNameLocator);
-        public InfoElement ProductPrice => new InfoElement(ProductPriceLocator);
+        private By PurchaseItemLocator = By.XPath("//a[contains(text(), 'Proceed to Checkout')]");
+        private By IsCartPageLocator = By.XPath("//h2[text()='Basket Totals']");
+
         public ButtonElement PurchaseItem => new ButtonElement(PurchaseItemLocator);
 
-        public string GetProductNameInCart()
+        public string GetProductNameInCart(string ItemName)
         {
-            return ProductName.GetText();             
+            return driver.FindElement(By.XPath(Format(ProductNameLocatorFormat, ItemName))).Text;
         }
 
-        public string GetPriceOfProductInCart()
+        public string GetPriceOfProductInCart(string ItemName)
         {
-            return ProductPrice.GetText();
+            return driver.FindElement(By.XPath(Format(ProductPriceLocatorFormat, ItemName))).Text;
         }
 
         public void RemoveItemsFromCart()
@@ -39,6 +40,15 @@ namespace Wrappers.Page
         public void PurchaseItems()
         {
             PurchaseItem.ClickElement();
+        }
+
+        public bool IsUserOnCartPage()
+        {
+            if (driver.FindElements(IsCartPageLocator).Count() != 0)
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }

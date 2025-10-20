@@ -15,6 +15,7 @@ namespace Wrappers.Page.Forms
         private By PlaceOrderButtonLocator = By.Id("place_order");
         private By ProductNameInOrderLocator = By.XPath("//td[@class='product-name']");
         private By ProductPriceInOrderLocator = By.XPath("//td[@class=('product-total')]/span");
+        private By IsOrderPageLocator = By.XPath("//h3[text()='Billing Details']");
 
         public InputElement FirstName => new InputElement(FirstNameLocator);
         public InputElement LastName => new InputElement(LastNameLocator);
@@ -49,6 +50,15 @@ namespace Wrappers.Page.Forms
         public void PlaceOrder()
         {
             PlaceOrderButton.ClickIfEnabled();
+        }
+
+        public bool IsUserOnOrderPage()
+        {
+            if (driver.FindElements(IsOrderPageLocator).Count() != 0)
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }

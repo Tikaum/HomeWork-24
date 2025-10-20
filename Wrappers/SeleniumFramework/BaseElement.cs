@@ -18,6 +18,7 @@ namespace Wrappers.SeleniumFramework
 
         public IWebElement Element => Wait.Until(driver => driver.FindElement(Locator));
         public IList<IWebElement> Elements => Wait.Until(driver => driver.FindElements(Locator));
+
         public bool IsEnabled()
         {
             return Element.Enabled;

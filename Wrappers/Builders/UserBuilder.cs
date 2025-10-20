@@ -34,6 +34,7 @@ namespace Wrappers.Builders
         {
             return new User(userName, userPassword);
         }
+
         public UserBuilder WithFirstName(string name1 = "")
         {
             firstName = name1;

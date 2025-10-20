@@ -39,7 +39,7 @@
             {
                 symbols[i] = chars2[random.Next(chars2.Length)];
             }
-            string pass = new string(lettersA)  + new string(lettersA)  + new string(symbols);
+            string pass = new string(lettersA)  + new string(lettersB)  + new string(symbols);
 
             return pass;
         }
