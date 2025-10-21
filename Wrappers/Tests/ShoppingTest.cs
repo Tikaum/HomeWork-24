@@ -31,6 +31,7 @@ namespace Wrappers.Tests
             loginForm.LoginUser(user);
             Assert.That(startPage.IsUserEnter(userEmail), Is.True, "The user was unable to log in.");
             startPage.CleanCart();
+            //cartPage.RemoveSpecificItemFromCart(itemName);
             startPage.GoToShopPage();
             Assert.That(shopPage.IsUserOnShopPage, Is.True, "The user did not go to the shop page");
             shopPage.AddItemFromNameToCart(itemName);
@@ -44,7 +45,7 @@ namespace Wrappers.Tests
                 Assert.That(itemName, Is.EqualTo(cartPage.GetProductNameInCart(itemName)), "The product names do not match");
                 Assert.That(price, Is.EqualTo(cartPage.GetPriceOfProductInCart(itemName)), "The prices of the goods do not match");
             });
-            cartPage.PurchaseItems();
+            cartPage.PurchaseItemsClick();
             Assert.That(orderForm.IsUserOnOrderPage, Is.True, "The user did not go to the order page");
             user = new UserBuilder()
                 .WithFirstName(usersWord)

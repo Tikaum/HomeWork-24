@@ -38,7 +38,7 @@ namespace Wrappers.Page
             if (driver.FindElements(CartNotEmptyButtonLocator).Count() != 0)
             {
                 CartNotEmptyButton.ClickElement();                
-                cartPage.RemoveItemsFromCart();                
+                cartPage.RemoveAllItemsFromCart();                
             }
         }
 
